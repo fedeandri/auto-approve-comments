@@ -7,11 +7,27 @@ The Auto Approve Comments WordPress plugin allows you to auto approve comments b
 Upload the zip file on your WordPress website and activate the plugin.
 
 ## Usage
-* Click on Comments -> Auto Approve Comments
-* Fill in the email list with the emails that you want to auto approve
+* Open Comments -> Auto Approve Comments
+* Configure the "Commenter list" or the "User ID list"
 * Save and you're done
 
-From now on, who comments on your blog/website using one of the emails in your Email list, will have his/her comment immediately approved even if you set your comments to be manually approved.
+From now on all the commenters listed in one of the lists above will have his/her comment immediately approved even if you set your comments to be manually approved.
+
+## Valid configurations
+
+### Commenter list
+Add only one commenter per line, these are all valid configurations:
+user@mysite.com
+user@mysite.com,John
+user@mysite.com,www.mysite.com
+user@mysite.com,www.mysite.com,John
+user@mysite.com,John,www.mysite.com
+
+### User ID list
+Add only one User ID per line:
+1
+23
+4
 
 ## Disclaimer
 This is an experimental plugin, use it as it is, at your own risk.
