@@ -37,5 +37,6 @@ Add only one User ID per line:
 This is an experimental plugin, use it as it is, at your own risk.
 
 ## License
-The Auto Approve Comments plugin is licensed under the GPL v2 or later.
+The Auto Approve Comments plugin is licensed under the GPL v2 or later:  
+http://www.gnu.org/licenses/gpl-2.0.html
 
