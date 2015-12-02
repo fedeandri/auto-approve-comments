@@ -17,21 +17,21 @@ From now on all the commenters listed in one of the lists above will have his/he
 
 ### Commenter list
 Add only one commenter per line, these are all valid configurations:  
-`
+```
 user@mysite.com  
 user@mysite.com,John  
 user@mysite.com,www.mysite.com  
 user@mysite.com,www.mysite.com,John  
 user@mysite.com,John,www.mysite.com  
-`
+```
 
 ### User ID list
 Add only one User ID per line:  
-`
+```
 1  
 23  
 4  
-`
+```
 
 ## Disclaimer
 This is an experimental plugin, use it as it is, at your own risk.
