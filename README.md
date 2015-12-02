@@ -16,21 +16,21 @@ From now on all the commenters listed in one of the lists above will have his/he
 ## Valid configurations
 
 ### Commenter list
-Add only one commenter per line, these are all valid configurations:
+Add only one commenter per line, these are all valid configurations:  
 `
-user@mysite.com<br>
-user@mysite.com,John<br>
-user@mysite.com,www.mysite.com<br>
-user@mysite.com,www.mysite.com,John<br>
-user@mysite.com,John,www.mysite.com
+user@mysite.com  
+user@mysite.com,John  
+user@mysite.com,www.mysite.com  
+user@mysite.com,www.mysite.com,John  
+user@mysite.com,John,www.mysite.com  
 `
 
 ### User ID list
-Add only one User ID per line:
+Add only one User ID per line:  
 `
-1<br>
-23<br>
-4
+1  
+23  
+4  
 `
 
 ## Disclaimer
