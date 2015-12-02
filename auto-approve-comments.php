@@ -2,7 +2,7 @@
 
 /*
  *	Plugin Name: Auto Approve Comments
- *	Plugin URI: http://automattic.com
+ *	Plugin URI: https://github.com/fedeandri/auto-approve-comments
  *	Description: Provides a quick way to auto approve new comments based on user email, name, url and ID
  *	Version: 1.1
  *	Author: Federico Andrioli
