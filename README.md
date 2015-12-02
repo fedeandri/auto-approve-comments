@@ -1,7 +1,7 @@
 # Auto Approve Comments - WordPress Plugin
 
 ## Description
-The Auto Approve Comments WordPress plugin allows you to auto approve comments based on commenters email.
+The "Auto Approve Comments" WordPress plugin allows you to auto approve comments based on commenters email, name, URL or User ID.
 
 ## Installation
 Upload the zip file on your WordPress website and activate the plugin.
