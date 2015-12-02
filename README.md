@@ -8,7 +8,7 @@ Upload the zip file on your WordPress website and activate the plugin.
 
 ## Usage
 * Open Comments -> Auto Approve Comments
-* Configure the "Commenter list" or the "User ID list"
+* Configure the "Commenter list" or the "User ID list" (see some examples below)
 * Save and you're done
 
 From now on all the commenters listed in one of the lists above will have his/her comment immediately approved even if you set your comments to be manually approved.
