@@ -1,6 +1,5 @@
 === Auto Approve Comments ===
 Contributors: fedeandri
-Donate link: http://example.com/
 Tags: auto approve comments, auto-approve comments, commenting, comments, spam, comments approval, approve, approval, comment approved, comment moderator, user comments, moderate, moderation, moderator, anti-spam, comments spam
 Requires at least: 3.8
 Tested up to: 4.3.1
