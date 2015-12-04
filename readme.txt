@@ -7,13 +7,13 @@ Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automatically approve the comments of your most trustful readers.
+The "Auto Approve Comments" WordPress plugin allows you to auto approve comments based on commenters email, name, URL or User ID.
 
 == Description ==
 
-Auto Approve Comments allows you to create a white list of commenters and to automatically approve their comments after checking their email, name, URL or User ID.  
-  
-Useful when you set your comments to be manually approved to avoid spam, but you still want to immediately approve the comments made by your most trustful readers.
+The "Auto Approve Comments" WordPress plugin allows you to auto approve comments based on commenters email, name, URL or User ID. 
+
+It's useful when you set your comments to be manually approved to avoid spam, but you still want to immediately approve the comments made by your most trustful commenters.
 
 == Installation ==
 
