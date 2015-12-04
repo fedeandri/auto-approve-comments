@@ -1,7 +1,7 @@
 # Auto Approve Comments - WordPress Plugin
 
 ## Official URL
-Download it from the WordPress plugin directory
+Download it from the WordPress plugin directory:  
 https://wordpress.org/plugins/auto-approve-comments/
 
 
