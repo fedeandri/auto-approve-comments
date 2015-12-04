@@ -3,7 +3,7 @@ Contributors: fedeandri
 Tags: auto approve comments, auto-approve comments, commenting, comments, spam, comments approval, approve, approval, comment approved, comment moderator, user comments, moderate, moderation, moderator, anti-spam, comments spam
 Requires at least: 3.8
 Tested up to: 4.3.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,9 @@ It's useful when you set your comments to be manually approved to avoid spam, bu
 3. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.2 =
+* Add better input validation
 
 = 1.1 =
 * Auto approve comments based on commenter's email, name, URL and User ID
