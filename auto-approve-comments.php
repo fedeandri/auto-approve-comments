@@ -93,7 +93,6 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			wp_update_comment( $comment );
 		}
 
-
 		private function get_commenters() {
 
 			$commenters = array();
