@@ -141,9 +141,11 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 	        if( isset($_POST['commenters_list']) && isset($_POST['userid_list']) ) {
 
 		        $commenters_list = strtolower( trim( preg_replace('/\n+/', "\n", $_POST['commenters_list'] ) ) );
-		        $commenters_list = preg_replace( '/\s*,\s*/', ',', $commenters_list );
+		        $commenters_list = preg_replace( '/[ ]*,[ ]*/', ',', $commenters_list );
 		        $commenters_list = preg_replace( '/(\w)[ ]+(\w)/', "$1 $2", $commenters_list );
 		        $commenters_list = preg_replace( '/https?:\/\//', '', $commenters_list );
+		        $commenters_list = preg_replace('/,\s/', "\n", $commenters_list );
+				$commenters_list = preg_replace('/,$/', '', $commenters_list );
 
 		        $commenters = preg_split( '/\n+/', $commenters_list, -1, PREG_SPLIT_NO_EMPTY );
 		        $commenters_clean = array();
@@ -157,7 +159,22 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 		        $commenters_list = implode( "\n", $commenters_clean );
 		        update_option( 'commenters_list', $commenters_list );
 
+
+
+
 		        $userid_list = strtolower( trim( preg_replace('/\s+/', "\n", $_POST['userid_list'] ) ) );
+		        $userid_list = preg_replace('/,/', '', $userid_list );
+
+		        $userids = preg_split( '/\n+/', $userid_list, -1, PREG_SPLIT_NO_EMPTY );
+		        $userids_clean = array();
+		        
+		        foreach ( $userids as $userid ) {
+		            if( preg_match( '/^[0-9]+$/', trim($userid) ) ){
+		                $userids_clean[] = $userid;
+		            }
+		        }
+
+		        $userid_list = implode( "\n", $userids_clean );
 		        update_option( 'userid_list', $userid_list );
 	        }
 
