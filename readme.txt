@@ -26,15 +26,15 @@ Useful when you set your comments to be manually approved to avoid spam, but you
 From now on all the commenters listed in one of the lists above will have their comments immediately approved even if you set the comments to be manually approved.
 
 
-**Commenter list - example**
+**Commenters list - example**
 
 Add only one commenter per line, these are all valid configurations:  
 `
-user@mysite.com  
-user@mysite.com, Mark  
-user@mysite.com, www.mysite.com  
-user@mysite.com, www.mysite.com, Mark  
-user@mysite.com, Mark, www.mysite.com  
+mark@verynicesite.com  
+mark@verynicesite.com,Mark  
+mark@verynicesite.com,www.verynicesite.com  
+mark@verynicesite.com,www.verynicesite.com,Mark  
+mark@verynicesite.com,Mark,www.verynicesite.com  
 `
 
 **Users list - example**
@@ -46,6 +46,12 @@ username2
 username3
 username4
 `
+
+**Developers**
+
+Official Github repository:  
+https://github.com/fedeandri/auto-approve-comments  
+
 
 == Installation ==
 

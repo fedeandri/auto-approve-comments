@@ -41,11 +41,12 @@ username3
 username4
 ```
 
-### Interface screenshots
-Commenters list tab  
+## Interface screenshots
+
+### Commenters list tab  
 ![Commenters list tab](screenshot-1.jpg)
 
-Users list tab  
+### Users list tab  
 ![Users list tab](screenshot-2.jpg)
 
 

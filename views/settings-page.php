@@ -19,11 +19,11 @@
                 For a more reliable filter, add the name and/or the url separated by a comma.<br>
                 Add only one commenter per line, these are all valid configurations:<br>
                 <code>
-                    user@mysite.com<br>
-                    user@mysite.com, Mark<br>
-                    user@mysite.com, www.mysite.com<br>
-                    user@mysite.com, www.mysite.com, Mark<br>
-                    user@mysite.com, Mark, www.mysite.com
+                mark@verynicesite.com<br>
+                mark@verynicesite.com,Mark<br>
+                mark@verynicesite.com,www.verynicesite.com<br>
+                mark@verynicesite.com,www.verynicesite.com,Mark<br>
+                mark@verynicesite.com,Mark,www.verynicesite.com<br>
                 </code>
             </div>
 
