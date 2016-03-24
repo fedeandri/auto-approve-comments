@@ -25,11 +25,11 @@ From now on all the commenters listed in one of the lists above will have their 
 ### Commenters list
 Add only one commenter per line, these are all valid configurations:  
 ```
-user@mysite.com  
-user@mysite.com, Mark  
-user@mysite.com, www.mysite.com  
-user@mysite.com, www.mysite.com, Mark  
-user@mysite.com, Mark, www.mysite.com  
+mark@verynicesite.com  
+mark@verynicesite.com,Mark  
+mark@verynicesite.com,www.verynicesite.com  
+mark@verynicesite.com,www.verynicesite.com,Mark  
+mark@verynicesite.com,Mark,www.verynicesite.com 
 ```
 
 ### Users list
@@ -40,6 +40,14 @@ username2
 username3
 username4
 ```
+
+### Interface screenshots
+Commenters list tab  
+![Commenters list tab](screenshot-1.jpg)
+
+Users list tab  
+![Users list tab](screenshot-2.jpg)
+
 
 ## License
 The Auto Approve Comments plugin is licensed under the GPL v2 or later:  
