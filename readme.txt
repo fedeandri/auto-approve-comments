@@ -9,6 +9,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Automatically approve the comments of your most trustful readers.
 
+
 == Description ==
 
 Auto Approve Comments allows you to create a white list of commenters and to automatically approve their comments after checking their email/name/URL or username.  
