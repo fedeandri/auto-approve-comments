@@ -59,6 +59,11 @@ https://github.com/fedeandri/auto-approve-comments
 2. Upload the unzipped folder "auto-approve-comments" to the `/wp-content/plugins/` directory of your WordPress blog/website
 3. Activate the plugin through the 'Plugins' menu in WordPress
 
+== Screenshots ==
+
+1. Commenters list tab
+2. Users list tab
+
 == Changelog ==
 
 = 1.5 =
