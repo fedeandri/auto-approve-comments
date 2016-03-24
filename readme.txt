@@ -15,6 +15,36 @@ Auto Approve Comments allows you to create a white list of commenters and to aut
   
 Useful when you set your comments to be manually approved to avoid spam, but you still want to immediately approve the comments made by your most trustful readers.
 
+
+**Usage**
+
+1. Open Comments -> Auto Approve Comments
+2. Configure the "Commenter list" or the "User ID list" (see some examples below)
+3. Save and you're done
+
+From now on all the commenters listed in one of the lists above will have his/her comment immediately approved even if you set your comments to be manually approved.
+
+
+**Commenter list - example**
+
+Add only one commenter per line, these are all valid configurations:  
+`
+user@mysite.com  
+user@mysite.com,John  
+user@mysite.com,www.mysite.com  
+user@mysite.com,www.mysite.com,John  
+user@mysite.com,John,www.mysite.com  
+`
+
+**User ID list - example**
+
+Add only one User ID per line:  
+`
+1  
+23  
+4  
+`
+
 == Installation ==
 
 1. Unzip the plugin file auto-approve-comments.zip

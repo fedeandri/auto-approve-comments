@@ -1,45 +1,55 @@
 <div class="wrap">
 <h2>Auto Approve Comments</h2>
 <p>
-    Auto approve comments based on the configuration below<br>
-    (comments from commenters/users listed below will be always auto approved)
+    Comments from commenters/users listed below will always be auto approved.
 </p>
 <form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
     <?php settings_fields( 'auto-approve-comments-group' ); ?>
     <?php do_settings_sections( 'auto-approve-comments-group' ); ?>
-    <table class="form-table">
-        <tr valign="top">
-            <td>
-                <label for="commenters_list"><strong>Commenters list</strong></label><br>
-                <div style="float:left; padding-right: 20px;"><textarea name="commenters_list" id="commenters_list" cols="40" rows="10"><?php echo esc_attr( get_option('commenters_list') ); ?></textarea></div>
-                <p>
-                    <strong>For each commenter that you want to auto-approve type at least the email address.</strong><br>
-                    But if you want to perform a more secure check, add the name and/or the url separated by a comma.<br>
-                    Add only one commenter per line. These are all valid configurations:<br>
+    <h2 class="nav-tab-wrapper">
+        <a href="#commenters-list" class="nav-tab nav-tab-active">Commenters</a>
+        <a href="#users-list" class="nav-tab">Users</a>
+    </h2>
+
+
+    <div id="aac-sections">
+        <section id="aac-commenters-list">
+            <div class="aac-helpdiv">
+                <strong>Type at least the email address of each commenter that you want to auto approve.</strong><br>
+                For a more reliable filter, add the name and/or the url separated by a comma.<br>
+                Add only one commenter per line, these are all valid configurations:<br>
+                <code>
                     user@mysite.com<br>
-                    user@mysite.com,John<br>
-                    user@mysite.com,www.mysite.com<br>
-                    user@mysite.com,www.mysite.com,John<br>
-                    user@mysite.com,John,www.mysite.com<br>
-                </p>
-            </td>                         
-        </tr>
-        <tr valign="top">
-            <td>
-                <label for="userid_list"><strong>User ID list</strong></label><br>
-                <div style="float:left; padding-right: 20px;"><textarea name="userid_list" id="userid_list" cols="10" rows="10"><?php echo esc_attr( get_option('userid_list') ); ?></textarea></div>
-                <p>
-                    <strong>Type the User ID of each commenter that you want to auto-approve.</strong><br>
-                    Be sure to write only one User ID per line, like this:<br>
-                    1<br>
-                    23<br>
-                    4<br>
-                </p>
-            </td>                         
-        </tr>
-    </table>
-    
-    <?php submit_button(); ?>
+                    user@mysite.com, Mark<br>
+                    user@mysite.com, www.mysite.com<br>
+                    user@mysite.com, www.mysite.com, Mark<br>
+                    user@mysite.com, Mark, www.mysite.com
+                </code>
+            </div>
+
+            <input id="aac-commenters-autocomplete" type="text" class="ui-autocomplete-input" autocomplete="off">
+            <input type="button" id="add_commenter" class="button button-small" value="Add commenter">
+            <div class="aac-inputdiv"><textarea name="commenters_list" id="commenters_list" class="aac-textarea"><?php echo esc_attr( get_option('aac_commenters_list') ); ?></textarea></div>
+        </section>
+
+        <section id="aac-users-list">
+           <div class="aac-helpdiv">
+                <strong>Type the username of each user that you want to auto approve.</strong><br>
+                Add only one username per line, like this:<br>
+                <code>
+                    username1<br>
+                    username2<br>
+                    username3<br>
+                    username4<br>
+                </code>
+            </div>
+
+            <input id="aac-usernames-autocomplete" type="text" class="ui-autocomplete-input" autocomplete="off">
+            <input type="button" id="add_username" class="button button-small" value="Add username">
+            <div class="aac-inputdiv"><textarea name="usernames_list" id="usernames_list" class="aac-textarea"><?php echo esc_attr( get_option('aac_usernames_list') ); ?></textarea></div>
+        </section>
+    </div>
+    <div id="aac-submit"><?php submit_button(); ?></div>
 
 </form>
 </div>

@@ -15,33 +15,31 @@ Upload the zip file on your WordPress website and activate the plugin.
 
 ## Usage
 * Open Comments -> Auto Approve Comments
-* Configure the "Commenter list" or the "User ID list" (see some examples below)
+* Configure the "Commenter list" or the "Users list" (see some examples below)
 * Save and you're done
 
-From now on all the commenters listed in one of the lists above will have his/her comment immediately approved even if you set your comments to be manually approved.
+From now on all the commenters listed in one of the lists above will have their comments immediately approved even if you set your comments to be manually approved.
 
 ## Valid configurations
 
-### Commenter list
+### Commenters list
 Add only one commenter per line, these are all valid configurations:  
 ```
 user@mysite.com  
-user@mysite.com,John  
-user@mysite.com,www.mysite.com  
-user@mysite.com,www.mysite.com,John  
-user@mysite.com,John,www.mysite.com  
+user@mysite.com, Mark  
+user@mysite.com, www.mysite.com  
+user@mysite.com, www.mysite.com, Mark  
+user@mysite.com, Mark, www.mysite.com  
 ```
 
-### User ID list
-Add only one User ID per line:  
+### Users list
+Add only one username per line:  
 ```
-1  
-23  
-4  
+username1
+username2
+username3
+username4
 ```
-
-## Disclaimer
-This is an experimental plugin, use it as it is, at your own risk.
 
 ## License
 The Auto Approve Comments plugin is licensed under the GPL v2 or later:  

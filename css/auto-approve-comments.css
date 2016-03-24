@@ -1,0 +1,67 @@
+#aac-sections {
+	padding:18px;
+}
+
+#aac-sections section {
+	display:none;
+}
+
+#aac-sections section:first-child {
+	display:block;
+}
+
+#aac-commenters-list p, #aac-usernames-list p {
+	padding-left: 18px;
+}
+
+#aac-sections code {
+	margin-top: 8px;
+	padding: 8px;
+	display: inline-block;
+}
+
+.aac-helpdiv {
+	margin-bottom: 16px;
+}
+
+#aac-submit {
+	padding-left: 18px;
+	display: block;
+}
+
+#aac-submit p {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+.aac-floatleft {
+	float:left;
+}
+
+.aac-inputdiv {
+	padding-right: 20px;
+}
+
+#aac-commenters-list .aac-textarea {
+	width: 80%;
+	height: 150px;
+}
+
+#aac-users-list .aac-textarea {
+	width: 50%;
+	height: 150px;
+}
+
+#aac-sections p {
+	height: 150px;
+}
+
+#aac-commenters-autocomplete {
+	width: 50%;
+}
+
+#aac-usernames-autocomplete {
+	width: 30%;
+}
+
+
