@@ -4,7 +4,7 @@
  *	Plugin Name: Auto Approve Comments
  *	Plugin URI: https://github.com/fedeandri/auto-approve-comments
  *	Description: Provides a quick way to auto approve new comments based on commenter email/name/url or username
- *	Version: 1.5
+ *	Version: 2.0
  *	Author: Federico Andrioli
  *	Author URI: https://it.linkedin.com/in/fedeandri
  *	GPLv2 or later
@@ -19,7 +19,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 	class AutoApproveComments
 	{
 
-		const VERSION = '1.5';
+		const VERSION = '2.0';
 		const DOMAIN_PATTERN = '/^([a-z0-9-]+\.)*[a-z0-9-]+\.[a-z]+$/';
 		const EMAIL_PATTERN = '/^[a-z0-9-.]+@[a-z0-9-]+\.[a-z]+/';
 		
@@ -29,8 +29,10 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			add_action( 'admin_init', array( &$this, 'register_db_settings' ) );
 			add_action( 'wp_insert_comment', array( &$this, 'auto_approve_comments' ), 999, 2 );
 			add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_custom_admin_files') );
-			add_action( 'wp_ajax_get_commenters_suggestions_ajax',  array( &$this, 'get_commenters_suggestions_ajax') );
-			add_action( 'wp_ajax_get_usernames_suggestions_ajax',  array( &$this, 'get_usernames_suggestions_ajax') );
+			add_action( 'wp_ajax_aac_ajax_get_commenters_suggestions',  array( &$this, 'aac_ajax_get_commenters_suggestions') );
+			add_action( 'wp_ajax_aac_ajax_get_usernames_suggestions',  array( &$this, 'aac_ajax_get_usernames_suggestions') );
+			add_action( 'wp_ajax_aac_ajax_save_configuration',  array( &$this, 'aac_ajax_save_configuration' ) );
+			add_action( 'wp_ajax_aac_ajax_refresh_configuration',  array( &$this, 'aac_ajax_refresh_configuration' ) );
 
 		}
 
@@ -44,7 +46,6 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 				array( &$this, 'add_settings_page' )
 				);
 
-			$this->read_input();
 			$this->plugin_update();
 		}
 
@@ -73,22 +74,18 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 	        wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
-			wp_enqueue_script( 'caret', plugin_dir_url( __FILE__ ) . 'lib/jQuery-tagEditor/jquery.caret.min.js', array( 'jquery' ), '1.0.0', true );
-
+			
 	        wp_enqueue_script( 'auto-approve-comments-js', plugin_dir_url( __FILE__ ) . 'js/auto-approve-comments.js', array( 'jquery' ), '1.0.0', true );
+			wp_localize_script( 'auto-approve-comments-js', 'auto_approve_comments_ajax_params', array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' )
+			));
+
 			wp_register_style( 'auto-approve-comments-css', plugin_dir_url( __FILE__ ) . 'css/auto-approve-comments.css', false, '1.0.0' );
 			wp_enqueue_style( 'auto-approve-comments-css' );
 			
 			wp_enqueue_script( 'aac-ajax-commenters-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-commenters-suggestions.js', array( 'jquery' ), '1.0.0', true );
-			wp_localize_script( 'aac-ajax-commenters-suggestions-js', 'get_commenters_suggestions_ajax_params', array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' )
-			));
-
 			wp_enqueue_script( 'aac-ajax-usernames-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-usernames-suggestions.js', array( 'jquery' ), '1.0.0', true );
-			wp_localize_script( 'aac-ajax-usernames-suggestions-js', 'get_usernames_suggestions_ajax_params', array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' )
-			));
-
+			wp_enqueue_script( 'aac-ajax-save-refresh-configuration-js', plugin_dir_url( __FILE__ ) . 'js/ajax-save-refresh-configuration.js', array( 'jquery' ), '1.0.0', true );
 			
 		}
 
@@ -126,7 +123,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			wp_update_comment( $comment );
 		}
 
-		public static function get_commenters_suggestions_ajax() {
+		public function aac_ajax_get_commenters_suggestions() {
 			
 			global $wpdb;
 			
@@ -152,6 +149,10 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 					$suggestions[] = preg_replace('/http(s)?:\/\//i', '', trim( $result[0], ', ' ) );
 				}
 
+				if ( count($suggestions) < 1 ) {
+					$suggestions[] = 'no matches for "'.$search.'"';
+				}
+
 				wp_send_json( $suggestions );
 
 			}
@@ -159,8 +160,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			exit();
 		}
 
-
-		public static function get_usernames_suggestions_ajax() {
+		public function aac_ajax_get_usernames_suggestions() {
 			
 			global $wpdb;
 			
@@ -184,6 +184,10 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 					$suggestions[] = $result[0];
 				}
 
+				if ( count($suggestions) < 1 ) {
+					$suggestions[] = 'no matches for "'.$search.'"';
+				}
+
 				wp_send_json( $suggestions );
 
 			}
@@ -191,6 +195,66 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			exit();
 		}
 
+		public function aac_ajax_refresh_configuration() {
+			
+			if( current_user_can( 'manage_options' ) ) {
+
+				$response['commenters'] = get_option('aac_commenters_list');
+				$response['usernames'] = get_option('aac_usernames_list');
+
+				wp_send_json( $response );
+
+			}
+
+			exit();
+		}
+
+		public function aac_ajax_save_configuration () {
+
+			if( current_user_can( 'manage_options' ) && wp_verify_nonce( $_REQUEST['nonce'], 'aac-save-configuration-nonce' ) ) {
+
+				$response = array();
+
+		        // commenters
+		        $commenters_list = strtolower( trim( preg_replace('/\n+/', "\n", $_REQUEST['commenters'] ) ) );
+		        $commenters_list = preg_replace( '/[ ]*,[ ]*/', ',', $commenters_list );
+		        $commenters_list = preg_replace( '/(\w)[ ]+(\w)/', "$1 $2", $commenters_list );
+		        $commenters_list = preg_replace( '/https?:\/\//', '', $commenters_list );
+		        $commenters_list = preg_replace('/,\s/', "\n", $commenters_list );
+				$commenters_list = preg_replace('/,$/', '', $commenters_list );
+
+		        $commenters = preg_split( '/\n+/', $commenters_list, -1, PREG_SPLIT_NO_EMPTY );
+		        $commenters_clean = array();
+		        
+		        foreach ( $commenters as $commenter ) {
+		            if( preg_match( self::EMAIL_PATTERN, $commenter ) ){
+		                $commenters_clean[trim( $commenter )] = true;
+		            }
+		        }
+
+		        $commenters_list = implode( "\n", array_keys( $commenters_clean ) );
+
+		        if (update_option( 'aac_commenters_list', $commenters_list ) ) {
+		        	$response['commenters_updated'] = true;
+		        }
+
+		        //usernames
+		        $usernames_list = strtolower( trim( preg_replace('/\s+/', "\n", $_REQUEST['usernames'] ) ) );
+		        $usernames_list = preg_replace('/,/', '', $usernames_list );
+
+		        $usernames_list = preg_split( '/\n+/', $usernames_list, -1, PREG_SPLIT_NO_EMPTY );
+				
+				$usernames_list = self::userids_to_usernames( $usernames_list );
+		        
+		        if (update_option( 'aac_usernames_list', $usernames_list ) ) {
+		        	$response['usernames_updated'] = true;
+		        }
+
+		        wp_send_json_success( $response );
+	        }
+
+	        exit();
+		}
 
 		private function get_commenters() {
 
@@ -259,63 +323,30 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 		private function plugin_update() {
 
-			if ( get_option( 'aac_plugin_version' ) != self::VERSION ) {
+			$current_plugin_version = get_option( 'aac_plugin_version' );
 
-				// 1.2 -> 1.5 update
-				$usernames_list = preg_split( '/\n+/', get_option( 'userid_list' ), -1, PREG_SPLIT_NO_EMPTY );
-		        
-		        $usernames_list = $this->userids_to_usernames( $usernames_list );
-				update_option( 'aac_usernames_list', $usernames_list );
-				update_option( 'aac_commenters_list', get_option( 'commenters_list' ) );
+			if ( $current_plugin_version != self::VERSION ) {
 
-				update_option( 'aac_plugin_version', self::VERSION );
+				if ( $current_plugin_version == '1.2' ) {
+					$usernames_list = preg_split( '/\n+/', get_option( 'userid_list' ), -1, PREG_SPLIT_NO_EMPTY );
+			        
+			        $usernames_list = $this->userids_to_usernames( $usernames_list );
+					update_option( 'aac_usernames_list', $usernames_list );
+					update_option( 'aac_commenters_list', get_option( 'commenters_list' ) );
 
-				unregister_setting( 'auto-approve-comments-group', 'userid_list' );
-				unregister_setting( 'auto-approve-comments-group', 'commenters_list' );
+					update_option( 'aac_plugin_version', self::VERSION );
 
-				delete_option( 'userid_list' );
-				delete_option( 'commenters_list' );
+					unregister_setting( 'auto-approve-comments-group', 'userid_list' );
+					unregister_setting( 'auto-approve-comments-group', 'commenters_list' );
+
+					delete_option( 'userid_list' );
+					delete_option( 'commenters_list' );
+				}
 
 			}
 
 		}
 
-		public static function read_input() {
-
-	        if( isset($_POST['commenters_list']) && isset($_POST['usernames_list']) ) {
-
-		        // commenters
-		        $commenters_list = strtolower( trim( preg_replace('/\n+/', "\n", $_POST['commenters_list'] ) ) );
-		        $commenters_list = preg_replace( '/[ ]*,[ ]*/', ',', $commenters_list );
-		        $commenters_list = preg_replace( '/(\w)[ ]+(\w)/', "$1 $2", $commenters_list );
-		        $commenters_list = preg_replace( '/https?:\/\//', '', $commenters_list );
-		        $commenters_list = preg_replace('/,\s/', "\n", $commenters_list );
-				$commenters_list = preg_replace('/,$/', '', $commenters_list );
-
-		        $commenters = preg_split( '/\n+/', $commenters_list, -1, PREG_SPLIT_NO_EMPTY );
-		        $commenters_clean = array();
-		        
-		        foreach ( $commenters as $commenter ) {
-		            if( preg_match( self::EMAIL_PATTERN, $commenter ) ){
-		                $commenters_clean[trim( $commenter )] = true;
-		            }
-		        }
-
-		        $commenters_list = implode( "\n", array_keys( $commenters_clean ) );
-		        update_option( 'aac_commenters_list', $commenters_list );
-
-		        //usernames
-		        $usernames_list = strtolower( trim( preg_replace('/\s+/', "\n", $_POST['usernames_list'] ) ) );
-		        $usernames_list = preg_replace('/,/', '', $usernames_list );
-
-		        $usernames_list = preg_split( '/\n+/', $usernames_list, -1, PREG_SPLIT_NO_EMPTY );
-				
-				$usernames_list = self::userids_to_usernames( $usernames_list );
-		        
-		        update_option( 'aac_usernames_list', $usernames_list );
-	        }
-
-		}
 	}
 
 	new AutoApproveComments;

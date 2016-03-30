@@ -3,21 +3,21 @@
 	$('#aac-usernames-autocomplete').on('input', function() {
 
 		var data = {
-			action: 'get_usernames_suggestions_ajax',
+			action: 'aac_ajax_get_usernames_suggestions',
 			search: $('#aac-usernames-autocomplete').val()
 		}
 
 		$.ajax({
-			url: get_usernames_suggestions_ajax_params.ajaxurl,
+			url: auto_approve_comments_ajax_params.ajaxurl,
 			type: 'post',
 			data: data,
-			success: function( result ) {
+			success: function( response ) {
 				
 				console.log("usernames autocomplete");
-				console.log(result);
+				console.log(response);
 
 				$('#aac-usernames-autocomplete').autocomplete({
-					source: result
+					source: response
 				});
 			}
 		})

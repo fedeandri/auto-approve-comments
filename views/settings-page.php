@@ -3,17 +3,28 @@
 <p>
     Comments from commenters/users listed below will always be auto approved.
 </p>
-<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+
+<div id="aac-notice-success">
+    <p class="aac-floatleft">All your changes have been successfully saved</p>
+    <button id="aac-notice-success-dismiss" type="button"class="dashicons dashicons-dismiss"><span class="screen-reader-text">Close</span></button>
+</div>
+
+<div id="aac-notice-error">
+    <p class="aac-floatleft">It was not possible to save your changes, please check your internet connection and try again</p>
+    <button id="aac-notice-error-dismiss" type="button"class="dashicons dashicons-dismiss"><span class="screen-reader-text">Close</span></button>
+</div>
+
+<div id="aac-main-form">
     <?php settings_fields( 'auto-approve-comments-group' ); ?>
     <?php do_settings_sections( 'auto-approve-comments-group' ); ?>
     <h2 class="nav-tab-wrapper">
-        <a href="#commenters-list" class="nav-tab nav-tab-active">Commenters</a>
-        <a href="#users-list" class="nav-tab">Users</a>
+        <a href="#aac-commenters-list" class="nav-tab nav-tab-active">Commenters</a>
+        <a href="#aac-users-list" class="nav-tab">Users</a>
     </h2>
 
 
     <div id="aac-sections">
-        <section id="aac-commenters-list">
+        <section id="aac-commenters-section">
             <div class="aac-helpdiv">
                 <strong>Type at least the email address of each commenter that you want to auto approve.</strong><br>
                 For a more reliable filter, add the name and/or the url separated by a comma.<br>
@@ -28,11 +39,11 @@
             </div>
 
             <input id="aac-commenters-autocomplete" type="text" class="ui-autocomplete-input" autocomplete="off">
-            <input type="button" id="add_commenter" class="button button-small" value="Add commenter">
-            <div class="aac-inputdiv"><textarea name="commenters_list" id="commenters_list" class="aac-textarea"><?php echo esc_attr( get_option('aac_commenters_list') ); ?></textarea></div>
+            <input type="button" id="aac-add-commenter" class="button button-small" value="Add commenter">
+            <div class="aac-inputdiv"><textarea name="aac-commenters-list" id="aac-commenters-list" class="aac-textarea"><?php echo esc_attr( get_option('aac_commenters_list') ); ?></textarea></div>
         </section>
 
-        <section id="aac-users-list">
+        <section id="aac-users-section">
            <div class="aac-helpdiv">
                 <strong>Type the username of each user that you want to auto approve.</strong><br>
                 Add only one username per line, like this:<br>
@@ -45,11 +56,13 @@
             </div>
 
             <input id="aac-usernames-autocomplete" type="text" class="ui-autocomplete-input" autocomplete="off">
-            <input type="button" id="add_username" class="button button-small" value="Add username">
-            <div class="aac-inputdiv"><textarea name="usernames_list" id="usernames_list" class="aac-textarea"><?php echo esc_attr( get_option('aac_usernames_list') ); ?></textarea></div>
+            <input type="button" id="aac-add-username" class="button button-small" value="Add username">
+            <div class="aac-inputdiv"><textarea name="aac-usernames-list" id="aac-usernames-list" class="aac-textarea"><?php echo esc_attr( get_option('aac_usernames_list') ); ?></textarea></div>
         </section>
     </div>
-    <div id="aac-submit"><?php submit_button(); ?></div>
 
-</form>
+    <input type="hidden" id="aac-save-configuration-nonce" value="<?php echo wp_create_nonce('aac-save-configuration-nonce') ?>">
+    <input id="aac-submit" class="button-primary" type="button" value="Save Changes">
+
+</div>
 </div>

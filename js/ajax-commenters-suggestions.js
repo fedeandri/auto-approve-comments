@@ -3,21 +3,21 @@
 	$('#aac-commenters-autocomplete').on('input', function() {
 
 		var data = {
-			action: 'get_commenters_suggestions_ajax',
+			action: 'aac_ajax_get_commenters_suggestions',
 			search: $('#aac-commenters-autocomplete').val()
 		}
 
 		$.ajax({
-			url: get_commenters_suggestions_ajax_params.ajaxurl,
+			url: auto_approve_comments_ajax_params.ajaxurl,
 			type: 'post',
 			data: data,
-			success: function( result ) {
+			success: function( response ) {
 				
 				console.log("commenters autocomplete");
-				console.log(result);
+				console.log(response);
 
 				$('#aac-commenters-autocomplete').autocomplete({
-					source: result
+					source: response
 				});
 			}
 		})
