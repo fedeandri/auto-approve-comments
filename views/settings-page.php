@@ -20,6 +20,7 @@
     <h2 class="nav-tab-wrapper">
         <a href="#aac-commenters-list" class="nav-tab nav-tab-active">Commenters</a>
         <a href="#aac-users-list" class="nav-tab">Users</a>
+        <a href="#aac-roles-list" class="nav-tab">Roles</a>
     </h2>
 
 
@@ -59,6 +60,24 @@
             <input type="button" id="aac-add-username" class="button button-small" value="Add username">
             <div class="aac-inputdiv"><textarea name="aac-usernames-list" id="aac-usernames-list" class="aac-textarea"><?php echo esc_attr( get_option('aac_usernames_list') ); ?></textarea></div>
         </section>
+        
+        <section id="aac-roles-section">
+           <div class="aac-helpdiv">
+                <strong>Type the role that you want to auto approve.</strong><br>
+                Add only one role per line, like this:<br>
+                <code>
+                    role1<br>
+                    role2<br>
+                    role3<br>
+                    role4<br>
+                </code>
+            </div>
+
+            <input id="aac-roles-autocomplete" type="text" class="ui-autocomplete-input" autocomplete="off">
+            <input type="button" id="aac-add-role" class="button button-small" value="Add role">
+            <div class="aac-inputdiv"><textarea name="aac-roles-list" id="aac-roles-list" class="aac-textarea"><?php echo esc_attr( get_option('aac_roles_list') ); ?></textarea></div>
+        </section>
+        
     </div>
 
     <input type="hidden" id="aac-save-configuration-nonce" value="<?php echo wp_create_nonce('aac-save-configuration-nonce') ?>">

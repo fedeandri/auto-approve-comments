@@ -21,7 +21,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 		const VERSION = '2.0';
 		const DOMAIN_PATTERN = '/^([a-z0-9-]+\.)*[a-z0-9-]+\.[a-z]+$/';
-		const EMAIL_PATTERN = '/^[a-z0-9-.]+@[a-z0-9-]+\.[a-z]+/';
+		const EMAIL_PATTERN = '/^[a-z0-9-._]+@[a-z0-9-]+\.[a-z]+/';
 		
 		public function __construct() {
 
@@ -31,6 +31,9 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_custom_admin_files') );
 			add_action( 'wp_ajax_aac_ajax_get_commenters_suggestions',  array( &$this, 'aac_ajax_get_commenters_suggestions') );
 			add_action( 'wp_ajax_aac_ajax_get_usernames_suggestions',  array( &$this, 'aac_ajax_get_usernames_suggestions') );
+			add_action( 'wp_ajax_aac_ajax_get_roles_suggestions',  array( &$this, 'aac_ajax_get_roles_suggestions') );
+			//add_action( 'wp_ajax_aac_ajax_get_categories_suggestions',  array( &$this, 'aac_ajax_get_categories_suggestions') );
+			//add_action( 'wp_ajax_aac_ajax_get_postspages_suggestions',  array( &$this, 'aac_ajax_get_postspages_suggestions') );
 			add_action( 'wp_ajax_aac_ajax_save_configuration',  array( &$this, 'aac_ajax_save_configuration' ) );
 			add_action( 'wp_ajax_aac_ajax_refresh_configuration',  array( &$this, 'aac_ajax_refresh_configuration' ) );
 
@@ -64,6 +67,9 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			register_setting( 'auto-approve-comments-group', 'aac_plugin_version' );
 			register_setting( 'auto-approve-comments-group', 'aac_commenters_list' );
 			register_setting( 'auto-approve-comments-group', 'aac_usernames_list' );
+			register_setting( 'auto-approve-comments-group', 'aac_roles_list' );
+			//register_setting( 'auto-approve-comments-group', 'aac_categories_list' );
+			//register_setting( 'auto-approve-comments-group', 'aac_postspages_list' );
 		}
 
 		public function enqueue_custom_admin_files( $hook ) {
@@ -85,6 +91,10 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			
 			wp_enqueue_script( 'aac-ajax-commenters-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-commenters-suggestions.js', array( 'jquery' ), '1.0.0', true );
 			wp_enqueue_script( 'aac-ajax-usernames-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-usernames-suggestions.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_script( 'aac-ajax-roles-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-roles-suggestions.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_script( 'aac-ajax-categories-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-categories-suggestions.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_script( 'aac-ajax-postspages-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-postspages-suggestions.js', array( 'jquery' ), '1.0.0', true );
+			
 			wp_enqueue_script( 'aac-ajax-save-refresh-configuration-js', plugin_dir_url( __FILE__ ) . 'js/ajax-save-refresh-configuration.js', array( 'jquery' ), '1.0.0', true );
 			
 		}
