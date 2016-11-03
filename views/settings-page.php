@@ -1,7 +1,8 @@
 <div class="wrap">
 <h2>Auto Approve Comments</h2>
 <p>
-    Comments from commenters/users listed below will always be auto approved.
+    Comments that match Commenters, Users and Roles listed below will always be auto approved.<br>
+    To effectively prevent SPAM remember to check "Comment must be manually approved" in Settings -> <a href="<?php echo network_admin_url( 'options-discussion.php' ); ?>">Discussion</a>
 </p>
 
 <div id="aac-notice-success">
@@ -22,7 +23,6 @@
         <a href="#aac-users-list" class="nav-tab">Users</a>
         <a href="#aac-roles-list" class="nav-tab">Roles</a>
     </h2>
-
 
     <div id="aac-sections">
         <section id="aac-commenters-section">

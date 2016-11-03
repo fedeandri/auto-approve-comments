@@ -2,10 +2,12 @@
 	
 	var commenters_list_placeholder = "Start typing to look for commenters";
 	var usernames_list_placeholder = "Start typing to look for usernames";
+	var roles_list_placeholder = "Start typing to look for roles";
 
 	$( document ).ready( function() {
 		$('#aac-commenters-autocomplete').attr("placeholder", commenters_list_placeholder);
 		$('#aac-usernames-autocomplete').attr("placeholder", usernames_list_placeholder);
+		$('#aac-roles-autocomplete').attr("placeholder", roles_list_placeholder);
 	});
 
 	$( document ).on( 'click', '.nav-tab-wrapper a', function() {
@@ -20,8 +22,6 @@
 
 	$( document ).on( 'click', '#aac-add-commenter', function() {
 
-		console.log("#aac-add-commenter click");
-
 		if( $('#aac-commenters-autocomplete').val() != '' ){
 			var commenters_list;
 			commenters_list = $('#aac-commenters-autocomplete').val() + "\n" + $('#aac-commenters-list').val();
@@ -34,8 +34,6 @@
 	
 	$( document ).on( 'click', '#aac-add-username', function() {
 
-		console.log("#aac-add-username click");
-
 		if( $('#aac-usernames-autocomplete').val() != '' ){
 			var usernames_list;
 			usernames_list = $('#aac-usernames-autocomplete').val() + "\n" + $('#aac-usernames-list').val();
@@ -43,6 +41,18 @@
 			$('#aac-usernames-list').val(usernames_list);
 			$('#aac-usernames-autocomplete').val('');
 			$('#aac-usernames-autocomplete').attr("placeholder", usernames_list_placeholder);
+		}
+	})
+
+	$( document ).on( 'click', '#aac-add-role', function() {
+
+		if( $('#aac-roles-autocomplete').val() != '' ){
+			var roles_list;
+			roles_list = $('#aac-roles-autocomplete').val() + "\n" + $('#aac-roles-list').val();
+
+			$('#aac-roles-list').val(roles_list);
+			$('#aac-roles-autocomplete').val('');
+			$('#aac-roles-autocomplete').attr("placeholder", roles_list_placeholder);
 		}
 	})
 

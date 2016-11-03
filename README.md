@@ -6,9 +6,9 @@ https://wordpress.org/plugins/auto-approve-comments/
 
 
 ## Description
-Auto Approve Comments allows you to create a white list of commenters and to automatically approve their comments after checking their email/name/URL or username.  
+Auto Approve Comments allows you to create a white list of commenters and to automatically approve their comments after checking their email/name/URL, username or user role (it works with custom roles).  
   
-Useful when you set the comments to be manually approved to avoid spam, but you still want to immediately approve the comments made by your most trustful commenters/users
+Useful when you set the comments to be manually approved to avoid spam, but you still want to immediately approve the comments made by your most trustful commenters/users.
 
 ## Installation
 Upload the zip file on your WordPress website and activate the plugin.
@@ -18,7 +18,7 @@ Upload the zip file on your WordPress website and activate the plugin.
 * Configure the "Commenters list" and/or the "Users list" (see some examples below)
 * Save and you're done
 
-From now on all the commenters listed in one of the lists above will have their comments immediately approved even if you set the comments to be manually approved.
+From now on all the commenters listed in one of the lists below will have their comments immediately approved even if you set the comments to be manually approved.
 
 ## Valid configurations
 
@@ -41,6 +41,15 @@ username3
 username4
 ```
 
+### Roles list
+Add only one role per line:  
+```
+role1
+role2
+role3
+role4
+```
+
 ## Interface screenshots
 
 ### Commenters list tab  
@@ -48,6 +57,9 @@ username4
 
 ### Users list tab  
 ![Users list tab](screenshot-2.jpg)
+
+### Roles list tab  
+![Roles list tab](screenshot-3.jpg)
 
 
 ## License

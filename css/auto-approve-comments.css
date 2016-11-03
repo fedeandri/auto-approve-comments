@@ -51,6 +51,11 @@
 	height: 150px;
 }
 
+#aac-roles-section .aac-textarea {
+	width: 50%;
+	height: 150px;
+}
+
 #aac-sections p {
 	height: 150px;
 }
@@ -63,7 +68,7 @@
 	width: 30%;
 }
 
-#aac-usernames-autocomplete {
+#aac-roles-autocomplete {
 	width: 30%;
 }
 
