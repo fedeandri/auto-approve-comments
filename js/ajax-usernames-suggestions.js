@@ -13,9 +13,6 @@
 			data: data,
 			success: function( response ) {
 				
-				console.log("usernames autocomplete");
-				console.log(response);
-
 				$('#aac-usernames-autocomplete').autocomplete({
 					source: response
 				});

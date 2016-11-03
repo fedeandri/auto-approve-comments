@@ -12,9 +12,6 @@
 			type: 'post',
 			data: data,
 			success: function( response ) {
-				
-				console.log("commenters autocomplete");
-				console.log(response);
 
 				$('#aac-commenters-autocomplete').autocomplete({
 					source: response
