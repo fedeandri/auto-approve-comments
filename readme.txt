@@ -1,20 +1,20 @@
 === Auto Approve Comments ===
 Contributors: fedeandri
-Tags: auto approve comments, auto-approve comments, commenting, comments, spam, comments approval, approve, approval, comment approved, comment moderator, user comments, moderate, moderation, moderator, anti-spam, comments spam, username, user, users, role, roles, email, url, admin
+Tags: auto approve, comments, moderation, anti-spam
 Requires at least: 3.8
-Tested up to: 4.7
-Stable tag: 2.1
+Tested up to: 5.0
+Stable tag: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automatically approve comments by commenter (email, name, url), user and role even if you set the comments to be manually approved to avoid spam.
+Auto approve comments by Commenter (email, name, url), User and Role.
 
 
 == Description ==
 
-Auto Approve Comments allows you to create a white list of commenters and to automatically approve their comments after checking their email/name/URL, username or user role (it works with custom roles).  
+Auto approve comments by Commenter (email, name, url), User and Role. 
   
-Useful when you set the comments to be manually approved to avoid spam, but you still want to immediately approve the comments made by your most trustful commenters/users.
+It has been tested and works well with Akismet and wpDiscuz.
 
 
 **Usage**
@@ -28,33 +28,33 @@ From now on all the commenters listed in one of the lists below will have their 
 
 **Commenters list - example**
 
-Add only one commenter per line, these are all valid configurations:  
+Add one Commenter per line, follow the example below:  
 `
-mark@verynicesite.com  
-mark@verynicesite.com,Mark  
-mark@verynicesite.com,www.verynicesite.com  
-mark@verynicesite.com,www.verynicesite.com,Mark  
-mark@verynicesite.com,Mark,www.verynicesite.com  
+tom@myface.com
+tom@myface.com,Tom
+tom@myface.com,www.myface.com
+tom@myface.com,www.myface.com,Tom
+tom@myface.com,Tom,www.myface.com
 `
 
 **Users list - example**
 
-Add only one username per line:  
+Add one Username per line, follow the example below:  
 `
-username1
-username2
-username3
-username4
+steveknobs76
+marissabuyer012
+larrymage98
+marktuckerberg2004
 `
 
 **Roles list - example**
 
-Add only one role per line:  
+Add one Role per line, follow the example below:  
 `
-role1
-role2
-role3
-role4
+contributor
+editor
+yourcustomrole
+subscriber
 `
 
 **Developers**
@@ -76,6 +76,13 @@ https://github.com/fedeandri/auto-approve-comments
 3. Roles list tab
 
 == Changelog ==
+
+= 2.5 =
+* Redesign the settings page
+* Test compatibility with Akismet
+* Test compatibility with wpDiscuz
+* Test compatibility with WordPress 5.0
+* Add a test to check if jQuery is loaded
 
 = 2.1 =
 * Add auto approval by role

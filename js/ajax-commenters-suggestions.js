@@ -1,23 +1,30 @@
-(function($) {
-	
-	$('#aac-commenters-autocomplete').on('input', function() {
+window.addEventListener('load', function(){
+if (!window.jQuery) {
+    document.getElementById('aac-notice-error-jquery').style.display = 'block';
+} else {
 
-		var data = {
-			action: 'aac_ajax_get_commenters_suggestions',
-			search: $('#aac-commenters-autocomplete').val()
-		}
-
-		$.ajax({
-			url: auto_approve_comments_ajax_params.ajaxurl,
-			type: 'post',
-			data: data,
-			success: function( response ) {
-
-				$('#aac-commenters-autocomplete').autocomplete({
-					source: response
-				});
-			}
-		})
-	})
-	
-})( jQuery );
+    (function($) {
+    	
+    	$('#aac-commenters-autocomplete').on('input', function() {
+    
+    		var data = {
+    			action: 'aac_ajax_get_commenters_suggestions',
+    			search: $('#aac-commenters-autocomplete').val()
+    		}
+    
+    		$.ajax({
+    			url: auto_approve_comments_ajax_params.ajaxurl,
+    			type: 'post',
+    			data: data,
+    			success: function( response ) {
+    
+    				$('#aac-commenters-autocomplete').autocomplete({
+    					source: response
+    				});
+    			}
+    		})
+    	})
+    	
+    })( jQuery );
+}
+}, false );

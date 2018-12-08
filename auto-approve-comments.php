@@ -4,7 +4,7 @@
  *	Plugin Name: Auto Approve Comments
  *	Plugin URI: https://github.com/fedeandri/auto-approve-comments
  *	Description: Provides a quick way to auto approve new comments based on commenter email/name/url or username
- *	Version: 2.1
+ *	Version: 2.5
  *	Author: Federico Andrioli
  *	Author URI: https://it.linkedin.com/in/fedeandri
  *	GPLv2 or later
@@ -19,9 +19,10 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 	class AutoApproveComments
 	{
 
-		const VERSION = '2.1';
-		const DOMAIN_PATTERN = '/^([a-z0-9-]+\.)*[a-z0-9-]+\.[a-z]+$/';
-		const EMAIL_PATTERN = '/^[a-z0-9-._+]+@[a-z0-9-]+\.[a-z]+/';
+		const VERSION = '2.5';
+		const DOMAIN_PATTERN = '/^\w+([\.-]\w+)*(\.\w{2,10})+$/';
+		/* important: email has to match against the beginning but not against the end of the string */
+		const EMAIL_PATTERN = '/^\w+([\.\-\+\?]\w+)*@\w+([\.-]\w+)*(\.\w{2,10})+/';
 		
 		public function __construct() {
 
@@ -254,16 +255,17 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			if( current_user_can( 'manage_options' ) && wp_verify_nonce( $_REQUEST['nonce'], 'aac-save-configuration-nonce' ) ) {
 
 				$response = array();
-
+				
 				/* COMMENTERS */
 		        $commenters_list = strtolower( trim( preg_replace('/\n+/', "\n", $_REQUEST['commenters'] ) ) );
 		        $commenters_list = preg_replace( '/[ ]*,[ ]*/', ',', $commenters_list );
-		        $commenters_list = preg_replace( '/(\w)[ ]+(\w)/', "$1 $2", $commenters_list );
+		        $commenters_list = preg_replace( '/([^ ]+)[ ]+([^ ]+)/', "$1 $2", $commenters_list );
 		        $commenters_list = preg_replace( '/https?:\/\//', '', $commenters_list );
-		        $commenters_list = preg_replace('/,\s/', "\n", $commenters_list );
-				$commenters_list = preg_replace('/,$/', '', $commenters_list );
+		        $commenters_list = preg_replace('/,\s+/', "\n", $commenters_list );
+		        $commenters_list = preg_replace('/,$/', '', $commenters_list );
 
 		        $commenters = preg_split( '/\n+/', $commenters_list, -1, PREG_SPLIT_NO_EMPTY );
+
 		        $commenters_clean = array();
 		        
 		        foreach ( $commenters as $commenter ) {
@@ -271,6 +273,10 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 		                $commenters_clean[trim( $commenter )] = true;
 		            }
 		        }
+		        
+		        
+
+			
 
 		        $commenters_list = implode( "\n", array_keys( $commenters_clean ) );
 
@@ -320,7 +326,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 			foreach ($commenters as $commenter) {
 				$features = preg_split('/,/', trim($commenter), -1, PREG_SPLIT_NO_EMPTY);
-
+				
 				$commenters_parsed[$features[0]]['email'] = $features[0];
 
 				if(isset($features[1])) {
