@@ -15,14 +15,16 @@ Upload the zip file on your WordPress website and activate the plugin.
 
 ## Usage
 * Open Comments -> Auto Approve Comments
-* Configure the "Commenters list" and/or the "Users list" (see some examples below)
+* Go to Settings -> Discussion and check "Comment must be manually approved" 
+* Optionally install and activate Akismet (comments flagged as SPAM will never get auto approved) 
+* Configure your auto approval filters in "Commenters", "Users" and "Roles"
 * Save and you're done
 
-From now on all the commenters listed in one of the lists below will have their comments immediately approved even if you set the comments to be manually approved.
+From now on all the comments that match at least one of the configurations in "Commenters", "Users" or "Roles" will always be auto approved.
 
 ## Valid configurations
 
-### Commenters list
+### Commenters
 Add one Commenter per line, follow the example below:  
 ```
 tom@myface.com
@@ -32,7 +34,7 @@ tom@myface.com,www.myface.com,Tom
 tom@myface.com,Tom,www.myface.com
 ```
 
-### Users list
+### Users
 Add one Username per line, follow the example below:  
 ```
 steveknobs76
@@ -41,7 +43,7 @@ larrymage98
 marktuckerberg2004
 ```
 
-### Roles list
+### Roles
 Add one Role per line, follow the example below:  
 ```
 contributor
@@ -52,14 +54,14 @@ subscriber
 
 ## Interface screenshots
 
-### Commenters list tab  
-![Commenters list tab](screenshot-1.jpg)
+### Commenters tab  
+![Commenters tab](screenshot-1.jpg)
 
-### Users list tab  
-![Users list tab](screenshot-2.jpg)
+### Users tab  
+![Users tab](screenshot-2.jpg)
 
-### Roles list tab  
-![Roles list tab](screenshot-3.jpg)
+### Roles tab  
+![Roles tab](screenshot-3.jpg)
 
 
 ## License

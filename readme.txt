@@ -3,7 +3,7 @@ Contributors: fedeandri
 Tags: auto approve, comments, moderation, anti-spam
 Requires at least: 3.8
 Tested up to: 5.0
-Stable tag: 2.5
+Stable tag: 2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,21 +12,24 @@ Auto approve comments by Commenter (email, name, url), User and Role.
 
 == Description ==
 
-Auto approve comments by Commenter (email, name, url), User and Role. 
-  
+Auto approve comments by Commenter (email, name, url), User and Role.
+
 It has been tested and works well with Akismet and wpDiscuz.
+
 
 
 **Usage**
 
 1. Open Comments -> Auto Approve Comments
-2. Configure the "Commenter list" and/or the "Users list" (see some examples below)
-3. Save and you're done
+2. Go to Settings -> Discussion and check "Comment must be manually approved" 
+3. Optionally install and activate Akismet (comments flagged as SPAM will never get auto approved) 
+4. Configure your auto approval filters in "Commenters", "Users" and "Roles"
+5. Save and you're done
 
-From now on all the commenters listed in one of the lists below will have their comments immediately approved even if you set the comments to be manually approved.
+From now on all the comments that match at least one of the configurations in "Commenters", "Users" or "Roles" will always be auto approved.
 
 
-**Commenters list - example**
+**Commenters - example**
 
 Add one Commenter per line, follow the example below:  
 `
@@ -37,7 +40,7 @@ tom@myface.com,www.myface.com,Tom
 tom@myface.com,Tom,www.myface.com
 `
 
-**Users list - example**
+**Users - example**
 
 Add one Username per line, follow the example below:  
 `
@@ -47,7 +50,7 @@ larrymage98
 marktuckerberg2004
 `
 
-**Roles list - example**
+**Roles - example**
 
 Add one Role per line, follow the example below:  
 `
@@ -76,6 +79,9 @@ https://github.com/fedeandri/auto-approve-comments
 3. Roles list tab
 
 == Changelog ==
+
+= 2.6 =
+* Better Akismet integration (comments flagged as SPAM will never get auto approved)
 
 = 2.5 =
 * Redesign the settings page

@@ -31,15 +31,16 @@
                 <div>
                 <strong>To effectively prevent SPAM while automatically approving comments:</strong>
                 <br>- go to Settings -> <a href="<?php echo network_admin_url( 'options-discussion.php' ); ?>">Discussion</a> and check "Comment must be manually approved"
-                <br>- configure your auto approval filters in "Commenter", "Users" and "Roles"
+                <br>- optionally install and activate <a href="<?php echo network_admin_url( 'plugin-install.php?s=akismet&tab=search&type=term' ); ?>">Akismet</a> (<strong>comments flagged as SPAM will never get auto approved</strong>)
+                <br>- configure your auto approval filters in "Commenters", "Users" and "Roles"
                 </div>
                 <br>
                 <div>
                 <strong>Auto Approve Comments has been tested and works well with:</strong>
-                <br>- <a href="<?php echo network_admin_url( 'plugin-install.php?s=akismet&tab=search&type=term' ); ?>">Akismet</a> anti-spam plugin
                 <br>- <a href="<?php echo network_admin_url( 'plugin-install.php?s=wpdiscuz&tab=search&type=term' ); ?>">wpDiscuz</a> comment extension plugin
-                <br>                
-                <br>Do you find this plugin useful? <a href="https://wordpress.org/support/plugin/auto-approve-comments/reviews/" target="_blank">Please leave a review &hearts;</a>
+                <br>- <a href="<?php echo network_admin_url( 'plugin-install.php?s=akismet&tab=search&type=term' ); ?>">Akismet</a> anti-spam plugin
+                <br>
+                <br>Do you find this plugin useful? <a href="https://wordpress.org/support/plugin/auto-approve-comments/reviews/" target="_blank">Show me some &hearts; with a review</a>
                 <br>Bugs, feedback? <a href="https://wordpress.org/support/plugin/auto-approve-comments" target="_blank">Post on the support forum</a>
                 </div>
             </div>

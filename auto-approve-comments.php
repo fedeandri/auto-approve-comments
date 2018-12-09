@@ -4,7 +4,7 @@
  *	Plugin Name: Auto Approve Comments
  *	Plugin URI: https://github.com/fedeandri/auto-approve-comments
  *	Description: Provides a quick way to auto approve new comments based on commenter email/name/url or username
- *	Version: 2.5
+ *	Version: 2.6
  *	Author: Federico Andrioli
  *	Author URI: https://it.linkedin.com/in/fedeandri
  *	GPLv2 or later
@@ -19,7 +19,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 	class AutoApproveComments
 	{
 
-		const VERSION = '2.5';
+		const VERSION = '2.6';
 		const DOMAIN_PATTERN = '/^\w+([\.-]\w+)*(\.\w{2,10})+$/';
 		/* important: email has to match against the beginning but not against the end of the string */
 		const EMAIL_PATTERN = '/^\w+([\.\-\+\?]\w+)*@\w+([\.-]\w+)*(\.\w{2,10})+/';
@@ -105,12 +105,25 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			$comment = array();
 			$comment['comment_ID'] = $comment_id;
 			$comment['comment_author_email'] = strtolower($comment_object->comment_author_email);
+			
+			$passAkismetTest = true;
+			
+			if ( class_exists( 'Akismet' ) ) {
+			    
+			    if (
+			        'true' === get_comment_meta( $comment['comment_ID'], 'akismet_result', true )
+			        || get_comment_meta( $comment['comment_ID'], 'akismet_error', true ) ) {
+	                
+			        $passAkismetTest = false;
+			    }
+			}
 
 			$user_info = get_userdata( $comment_object->user_id );
 
 			/* ROLES */
 			if( 
-				!$comment['comment_approved'] 
+			    $passAkismetTest
+				&& !$comment['comment_approved'] 
 				&& $user_info 
 				&& $this->auto_approve_roles($user_info->roles) ) {
 
@@ -118,7 +131,8 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 			/* USERNAMES */
 			} elseif( 
-				!$comment['comment_approved'] 
+				$passAkismetTest
+				&& !$comment['comment_approved'] 
 				&& $user_info 
 				&& $this->auto_approve_usernames($user_info->user_login) ) {
 				
@@ -126,13 +140,15 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 			/* COMMENTERS */
 			} elseif ( 
-				!$comment['comment_approved'] 
+				$passAkismetTest
+				&& !$comment['comment_approved'] 
 				&& $this->auto_approve_commenters($comment_object) ) {
 
 				$comment['comment_approved'] = 1;
 			}
-
-			wp_update_comment( $comment );
+            
+            if( $comment['comment_approved'] )
+			    wp_update_comment( $comment );
 		}
 
 		public function aac_ajax_get_commenters_suggestions() {
