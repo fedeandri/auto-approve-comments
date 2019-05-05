@@ -1,3 +1,4 @@
+"use strict";
 window.addEventListener('load', function(){
 if (!window.jQuery) {
     document.getElementById('aac-notice-error-jquery').style.display = 'block';

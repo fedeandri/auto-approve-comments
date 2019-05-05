@@ -2,15 +2,16 @@
 	padding:18px;
 }
 
-#aac-sections section {
+#aac-sections .aac-section {
 	display:none;
 }
 
-#aac-sections section:first-child {
+#aac-sections .aac-section:first-child {
 	display:block;
 }
 
-#aac-commenters-list p, #aac-usernames-list p {
+#aac-commenters-list p,
+#aac-usernames-list p {
 	padding-left: 18px;
 }
 
@@ -72,8 +73,12 @@
 	width: 30%;
 }
 
-#aac-notice-success, #aac-notice-error {
-	height: 45px;
+#aac-notice-success,
+#aac-notice-error,
+#aac-notice-error-jquery,
+#aac-notice-warning-jquery {
+    min-height: 45px;
+    overflow: auto;
 	display: none;
 	background-color: #fff;
     -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
@@ -86,18 +91,28 @@
 #aac-notice-success {
     border-left: 4px solid #7ad03a;
 }
-
-#aac-notice-error {
+#aac-notice-warning-jquery {
+    border-left: 4px solid #ffb900;
+}
+#aac-notice-error,
+#aac-notice-error-jquery {
     border-left: 4px solid #dc3232;
 }
 
-#aac-notice-success p, #aac-notice-error p {
+#aac-notice-success p, 
+#aac-notice-error p,
+#aac-notice-error-jquery p,
+#aac-notice-warning-jquery p {
+    width: 75%;
     font-size: 13px;
     line-height: 1.5;
     margin: 1em;
 }
 
-#aac-notice-success-dismiss, #aac-notice-error-dismiss {
+#aac-notice-success-dismiss,
+#aac-notice-error-dismiss,
+#aac-notice-error-dismiss-jquery,
+#aac-notice-warning-dismiss-jquery {
 	float: right;
     position: relative;
 	width: 38px;
@@ -112,7 +127,10 @@
     cursor: pointer;
 }
 
-#aac-notice-success-dismiss:hover, #aac-notice-error-dismiss:hover {
+#aac-notice-success-dismiss:hover,
+#aac-notice-error-dismiss:hover,
+#aac-notice-error-dismiss-jquery:hover,
+#aac-notice-warning-dismiss-jquery:hover {
     color: #c00;
 }
 

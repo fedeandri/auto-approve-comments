@@ -1,5 +1,5 @@
 <div class="wrap">
-<h2>Auto Approve Comments</h2>
+<h2>Auto Approve Comments (AAC)</h2>
 <div id="aac-notice-success">
     <p class="aac-floatleft">All your changes have been successfully saved</p>
     <button id="aac-notice-success-dismiss" type="button"class="dashicons dashicons-dismiss"><span class="screen-reader-text">Close</span></button>
@@ -15,38 +15,44 @@
     <button id="aac-notice-error-dismiss-jquery" onclick="document.getElementById('aac-notice-error-jquery').style.display = 'none';" type="button"class="dashicons dashicons-dismiss"><span class="screen-reader-text">Close</span></button>
 </div>
 
+<div id="aac-notice-warning-jquery">
+    <p class="aac-floatleft">jQuery is still loading, please wait a few more seconds<span id="aac-notice-warning-jquery-loader"></span></p>
+    <button id="aac-notice-warning-dismiss-jquery" onclick="document.getElementById('aac-notice-warning-jquery').style.display = 'none';" type="button"class="dashicons dashicons-dismiss"><span class="screen-reader-text">Close</span></button>
+</div>
+
 <div id="aac-main-form">
     <?php settings_fields( 'auto-approve-comments-group' ); ?>
     <?php do_settings_sections( 'auto-approve-comments-group' ); ?>
     <h2 class="nav-tab-wrapper">
-        <a href="#aac-general-info" class="nav-tab nav-tab-active">General info</a>
-        <a href="#aac-commenters-list" class="nav-tab">Commenters</a>
-        <a href="#aac-users-list" class="nav-tab">Users</a>
-        <a href="#aac-roles-list" class="nav-tab">Roles</a>
+        <a href="#aac-general-info" class="aac-tab-title nav-tab nav-tab-active">General info</a>
+        <a href="#aac-commenters-list" class="aac-tab-title nav-tab">Commenters</a>
+        <a href="#aac-users-list" class="aac-tab-title nav-tab">Users</a>
+        <a href="#aac-roles-list" class="aac-tab-title nav-tab">Roles</a>
     </h2>
 
     <div id="aac-sections">
-        <section id="aac-general-section">
+        <section class="aac-section" id="aac-general-section">
             <div class="aac-helpdiv">
                 <div>
-                <strong>To effectively prevent SPAM while automatically approving comments:</strong>
+                Something is not working? <a href="https://wordpress.org/support/plugin/auto-approve-comments" target="_blank">Post on the support forum</a>
+                <br>Everything works and you find AAC useful? <a href="https://wordpress.org/support/plugin/auto-approve-comments/reviews/" target="_blank">I'd appreciate a positive review &hearts;</a>
+                <br>
+                <br><strong>To effectively prevent SPAM while automatically approving comments:</strong>
                 <br>- go to Settings -> <a href="<?php echo network_admin_url( 'options-discussion.php' ); ?>">Discussion</a> and check "Comment must be manually approved"
                 <br>- optionally install and activate <a href="<?php echo network_admin_url( 'plugin-install.php?s=akismet&tab=search&type=term' ); ?>">Akismet</a> (<strong>comments flagged as SPAM will never get auto approved</strong>)
                 <br>- configure your auto approval filters in "Commenters", "Users" and "Roles"
                 </div>
                 <br>
                 <div>
-                <strong>Auto Approve Comments has been tested and works well with:</strong>
+                <strong>AAC has been tested and works well with:</strong>
                 <br>- <a href="<?php echo network_admin_url( 'plugin-install.php?s=wpdiscuz&tab=search&type=term' ); ?>">wpDiscuz</a> comment extension plugin
                 <br>- <a href="<?php echo network_admin_url( 'plugin-install.php?s=akismet&tab=search&type=term' ); ?>">Akismet</a> anti-spam plugin
                 <br>
-                <br>Do you find this plugin useful? <a href="https://wordpress.org/support/plugin/auto-approve-comments/reviews/" target="_blank">Show me some &hearts; with a review</a>
-                <br>Bugs, feedback? <a href="https://wordpress.org/support/plugin/auto-approve-comments" target="_blank">Post on the support forum</a>
                 </div>
             </div>
         </section>
 
-        <section id="aac-commenters-section">
+        <section class="aac-section" id="aac-commenters-section">
             <div class="aac-helpdiv">
                 <strong>Commenters auto approval setup:</strong>
                 <br>- Type at least the email address of each commenter that you want to auto approve
@@ -68,7 +74,7 @@
             <i>- Comments that match the Commenters above will always be auto approved -</i>
         </section>
 
-        <section id="aac-users-section">
+        <section class="aac-section" id="aac-users-section">
            <div class="aac-helpdiv">
                 <strong>Users auto approval setup:</strong>
                 <br>- Type the username of each user that you want to auto approve
@@ -87,7 +93,7 @@
             <i>- Comments that match the Usernames above will always be auto approved -</i>
         </section>
         
-        <section id="aac-roles-section">
+        <section class="aac-section" id="aac-roles-section">
            <div class="aac-helpdiv">
                 <strong>Roles auto approval setup:</strong>
                 <br>- Type the role that you want to auto approve

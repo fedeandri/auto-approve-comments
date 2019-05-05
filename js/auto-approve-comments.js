@@ -1,8 +1,23 @@
-window.addEventListener('load', function(){
-if (!window.jQuery) {
-    document.getElementById('aac-notice-error-jquery').style.display = 'block';
-} else {
-
+"use strict";
+window.addEventListener('load', function() {
+var loadingAttempts = 0;
+waitForjQuery(loadingAttempts);
+function waitForjQuery(loadingAttempts) {
+    if (window.jQuery) {
+        document.getElementById('aac-notice-warning-jquery').style.display = 'none';
+        initBackendInterface();
+    } else {
+        if( loadingAttempts < 30 ) {
+            setTimeout( function() { waitForjQuery( loadingAttempts+1 ) }, 500 );
+            document.getElementById('aac-notice-warning-jquery').style.display = 'block';
+            document.getElementById('aac-notice-warning-jquery-loader').innerHTML += '.';
+        } else {
+            document.getElementById('aac-notice-warning-jquery').style.display = 'none';
+            document.getElementById('aac-notice-error-jquery').style.display = 'block';
+        }
+    }
+}
+function initBackendInterface() {
     (function($) {
     	
     	var commenters_list_placeholder = "Start typing to look for commenters";
@@ -15,12 +30,12 @@ if (!window.jQuery) {
     		$('#aac-roles-autocomplete').attr("placeholder", roles_list_placeholder);
     	});
     
-    	$( document ).on( 'click', '.nav-tab-wrapper a', function() {
+    	$( document ).on( 'click', '.aac-tab-title', function() {
     
-    		$( 'section' ).hide();
-    		$( 'h2.nav-tab-wrapper a' ).removeClass( 'nav-tab-active' );
+    		$( '.aac-section' ).hide();
+    		$( '.aac-tab-title' ).removeClass( 'nav-tab-active' );
     		$( event.target ).addClass( 'nav-tab-active' ).blur();
-    		$( 'section' ).eq($(this).index()).show();
+    		$( '.aac-section' ).eq($(this).index()).show();
     
     		return false;
     	})

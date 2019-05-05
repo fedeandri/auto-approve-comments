@@ -3,8 +3,8 @@
 /*
  *	Plugin Name: Auto Approve Comments
  *	Plugin URI: https://github.com/fedeandri/auto-approve-comments
- *	Description: Provides a quick way to auto approve new comments based on commenter email/name/url or username
- *	Version: 2.6
+ *	Description: Auto approve new comments based on commenter (email/name/url), username or role.
+ *	Version: 2.7
  *	Author: Federico Andrioli
  *	Author URI: https://it.linkedin.com/in/fedeandri
  *	GPLv2 or later
@@ -19,7 +19,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 	class AutoApproveComments
 	{
 
-		const VERSION = '2.6';
+		const VERSION = '2.7';
 		const DOMAIN_PATTERN = '/^\w+([\.-]\w+)*(\.\w{2,10})+$/';
 		/* important: email has to match against the beginning but not against the end of the string */
 		const EMAIL_PATTERN = '/^\w+([\.\-\+\?]\w+)*@\w+([\.-]\w+)*(\.\w{2,10})+/';
@@ -28,7 +28,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 			add_action( 'admin_menu', array( &$this, 'plugin_init' ) );
 			add_action( 'admin_init', array( &$this, 'register_db_settings' ) );
-			add_action( 'wp_insert_comment', array( &$this, 'auto_approve_comments' ), 999, 2 );
+			add_action( 'wp_insert_comment', array( &$this, 'auto_approve_comments' ), 999, 2 );			
 			add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue_custom_admin_files') );
 			add_action( 'wp_ajax_aac_ajax_get_commenters_suggestions',  array( &$this, 'aac_ajax_get_commenters_suggestions') );
 			add_action( 'wp_ajax_aac_ajax_get_usernames_suggestions',  array( &$this, 'aac_ajax_get_usernames_suggestions') );
@@ -73,30 +73,32 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			//register_setting( 'auto-approve-comments-group', 'aac_postspages_list' );
 		}
 
-		public function enqueue_custom_admin_files( $hook ) {
-
-			if ( 'comments_page_auto-approve-comments' != $hook ) {
+		public function enqueue_custom_admin_files() {
+            
+            $currentScreen = get_current_screen();
+            
+			if ($currentScreen->id != 'comments_page_auto-approve-comments') {
 		        return;
 		    }
 
 	        wp_enqueue_script( 'jquery' );
 			wp_enqueue_script( 'jquery-ui-autocomplete' );
 			
-	        wp_enqueue_script( 'auto-approve-comments-js', plugin_dir_url( __FILE__ ) . 'js/auto-approve-comments.js', array( 'jquery' ), '1.0.0', true );
+	        wp_enqueue_script( 'auto-approve-comments-js', plugin_dir_url( __FILE__ ) . 'js/auto-approve-comments.js', array( 'jquery' ), '1.1.0', true );
 			wp_localize_script( 'auto-approve-comments-js', 'auto_approve_comments_ajax_params', array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' )
 			));
 
-			wp_register_style( 'auto-approve-comments-css', plugin_dir_url( __FILE__ ) . 'css/auto-approve-comments.css', false, '1.0.0' );
+			wp_register_style( 'auto-approve-comments-css', plugin_dir_url( __FILE__ ) . 'css/auto-approve-comments.css', false, '1.1.0' );
 			wp_enqueue_style( 'auto-approve-comments-css' );
 			
-			wp_enqueue_script( 'aac-ajax-commenters-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-commenters-suggestions.js', array( 'jquery' ), '1.0.0', true );
-			wp_enqueue_script( 'aac-ajax-usernames-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-usernames-suggestions.js', array( 'jquery' ), '1.0.0', true );
-			wp_enqueue_script( 'aac-ajax-roles-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-roles-suggestions.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_script( 'aac-ajax-commenters-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-commenters-suggestions.js', array( 'jquery', 'jquery-ui-autocomplete' ), '1.1.0', true );
+			wp_enqueue_script( 'aac-ajax-usernames-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-usernames-suggestions.js', array( 'jquery', 'jquery-ui-autocomplete' ), '1.1.0', true );
+			wp_enqueue_script( 'aac-ajax-roles-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-roles-suggestions.js', array( 'jquery','jquery-ui-autocomplete' ), '1.1.0', true );
 			//wp_enqueue_script( 'aac-ajax-categories-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-categories-suggestions.js', array( 'jquery' ), '1.0.0', true );
 			//wp_enqueue_script( 'aac-ajax-postspages-suggestions-js', plugin_dir_url( __FILE__ ) . 'js/ajax-postspages-suggestions.js', array( 'jquery' ), '1.0.0', true );
 			
-			wp_enqueue_script( 'aac-ajax-save-refresh-configuration-js', plugin_dir_url( __FILE__ ) . 'js/ajax-save-refresh-configuration.js', array( 'jquery' ), '1.0.0', true );
+			wp_enqueue_script( 'aac-ajax-save-refresh-configuration-js', plugin_dir_url( __FILE__ ) . 'js/ajax-save-refresh-configuration.js', array( 'jquery' ), '1.1.0', true );
 			
 		}
 
@@ -117,7 +119,7 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 			        $passAkismetTest = false;
 			    }
 			}
-
+			
 			$user_info = get_userdata( $comment_object->user_id );
 
 			/* ROLES */
@@ -284,16 +286,13 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 		        $commenters_clean = array();
 		        
+		        # remove duplicates and bad patterns
 		        foreach ( $commenters as $commenter ) {
 		            if( preg_match( self::EMAIL_PATTERN, $commenter ) ){
 		                $commenters_clean[trim( $commenter )] = true;
 		            }
 		        }
 		        
-		        
-
-			
-
 		        $commenters_list = implode( "\n", array_keys( $commenters_clean ) );
 
 		        if (update_option( 'aac_commenters_list', $commenters_list ) ) {
@@ -320,8 +319,13 @@ if ( ! class_exists( 'AutoApproveComments' ) ) {
 
 		        $roles = preg_split( '/\n+/', $roles_list, -1, PREG_SPLIT_NO_EMPTY );
 		        $roles_clean = array();
-
-		        $roles_list = implode( "\n", $roles );
+                
+                # remove duplicates
+		        foreach ( $roles as $role ) {
+	                $roles_clean[trim( $role )] = true;
+		        }
+		        
+		        $roles_list = implode( "\n", array_keys( $roles_clean ) );
 		        
 		        if ( update_option( 'aac_roles_list', $roles_list ) ) {
 		        	$response['roles_updated'] = true;
