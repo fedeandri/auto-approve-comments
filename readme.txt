@@ -7,14 +7,12 @@ Stable tag: 2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Auto approve comments by Commenter (email, name, url), User and Role *Akismet and wpDiscuz compatible*
+Auto approve comments by Commenter (email, name, url), User and Role (Akismet and wpDiscuz compatible)
 
 
 == Description ==
 
-Auto approve comments by Commenter (email, name, url), User and Role.
-
-It has been tested and works well with Akismet and wpDiscuz.
+Auto approve comments by Commenter (email, name, url), User and Role (Akismet and wpDiscuz compatible).
 
 
 
