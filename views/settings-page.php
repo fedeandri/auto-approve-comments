@@ -6,7 +6,7 @@
 </div>
 
 <div id="aac-notice-error">
-    <p class="aac-floatleft">It was not possible to save your changes, please check your internet connection and try again</p>
+    <p class="aac-floatleft">It was not possible to save your changes, please reload this page and try again</p>
     <button id="aac-notice-error-dismiss" type="button"class="dashicons dashicons-dismiss"><span class="screen-reader-text">Close</span></button>
 </div>
 
@@ -102,8 +102,8 @@
                 <code>
                     contributor<br>
                     editor<br>
-                    yourcustomrole<br>
                     subscriber<br>
+                    yourcustomrole<br>
                 </code>
             </div>
 

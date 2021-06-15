@@ -2,8 +2,8 @@
 Contributors: fedeandri
 Tags: auto approve, comments, moderation, anti-spam
 Requires at least: 3.8
-Tested up to: 5.2
-Stable tag: 2.7
+Tested up to: 5.8
+Stable tag: 2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,12 @@ https://github.com/fedeandri/auto-approve-comments
 3. Roles tab
 
 == Changelog ==
+
+= 2.8 =
+* Adds a notice when trying to save while current nonce is expired
+* Adds the settings page link on plugins page
+* Better script loading chain
+* Minor fixes and code refactoring
 
 = 2.7 =
 * Updates the test to check if jQuery is loaded

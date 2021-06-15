@@ -1,6 +1,6 @@
 "use strict";
-window.addEventListener('load', function(){
-if (!window.jQuery) {
+
+if (typeof jQuery != 'function') {
     document.getElementById('aac-notice-error-jquery').style.display = 'block';
 } else {
 
@@ -28,4 +28,3 @@ if (!window.jQuery) {
     	
     })( jQuery );
 }
-}, false );
